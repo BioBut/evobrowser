@@ -22,7 +22,6 @@
 * [DevNotes](https://github.com/rx1310/archive.DevNotes) - позаимствованы настройки WebView
 
 ### Превью
-**На фоне горы Эльбрус :)**
 ![Screnshot](https://github.com/dmitrylaas/Evolution-Browser/blob/master/Art/banner.jpg)
 
 ### Лицензия
