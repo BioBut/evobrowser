@@ -22,7 +22,7 @@
 * [DevNotes](https://github.com/rx1310/archive.DevNotes) - позаимствованы настройки WebView
 
 ### Превью
-![Screnshot](https://github.com/dmitrylaas/Evolution-Browser/blob/master/Art/banner.jpg)
+![Screnshot](https://github.com/dmitrylaas/Evolution-Browser/blob/master/Art/Screenshot.png)
 
 ### Лицензия
 ```
