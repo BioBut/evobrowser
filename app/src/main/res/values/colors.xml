@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#FAFAFA</color>
+    <color name="colorAccent">#4285F4</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreyLight">#9E9E9E</color>
+    <color name="colorGreyDark">#757575</color>
+    <color name="colorDark">#212121</color>
+    <color name="shadowToolbarLight">#E0E0E0</color>
+    <color name="shadowToolbarDark">#424242</color>
+
+</resources>

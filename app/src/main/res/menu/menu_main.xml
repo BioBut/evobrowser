@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/back"
+        android:title="@string/back"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/forward"
+        android:title="@string/forward"
+        android:orderInCategory="2" />
+
+    <item
+        android:id="@+id/copy_link"
+        android:title="@string/copy_link"
+        android:orderInCategory="3"/>
+
+    <item
+        android:id="@+id/setting"
+        android:title="@string/settings"
+        android:orderInCategory="4" />
+
+</menu>
