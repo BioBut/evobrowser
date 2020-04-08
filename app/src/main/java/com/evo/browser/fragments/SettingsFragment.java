@@ -3,10 +3,12 @@ package com.evo.browser.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.evo.browser.R;
+import com.evo.browser.activities.LicensesActivity;
 import com.evo.browser.activities.MainActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -26,6 +28,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         darkTheme.setOnPreferenceClickListener(preference -> {
             getActivity().moveTaskToBack(true);
             startActivity(new Intent(requireContext(), MainActivity.class));
+            return false;
+        });
+
+        Preference licenses = findPreference("licenses");
+        licenses.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity(), LicensesActivity.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return false;
         });
     }

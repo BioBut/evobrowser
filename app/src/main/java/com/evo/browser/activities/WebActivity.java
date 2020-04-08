@@ -48,6 +48,7 @@ import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.evo.browser.R;
 import com.evo.browser.utils.ThemeUtils;
 import com.evo.browser.view.CenteredToolbar;
@@ -490,42 +491,33 @@ public class WebActivity extends AppCompatActivity {
             if(URLUtil.isNetworkUrl(DownloadImageUrl))
             {
 
-                // Копирование ссылки
-
-                menu.add(0,1,0,R.string.copy_link).setOnMenuItemClickListener(menuItem -> {
-                    String copyimageurl = wavierHottestResult.getExtra();
-                    ClipboardManager manager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("label",copyimageurl);
-                    manager.setPrimaryClip(clip);
-                    Toast.makeText(WebActivity.this, R.string.copy, Toast.LENGTH_SHORT).show();
-                    return false;
-                });
-
-                // Отправка изображения (без скачивания его в память устройства)
-
-                menu.add(0,2,0,R.string.send_image).setOnMenuItemClickListener(menuItem -> {
-                    Picasso.get().load(DownloadImageUrl).into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            Intent i = new Intent(Intent.ACTION_SEND);
-                            i.setType("image/*");
-                            i.putExtra(Intent.EXTRA_STREAM, geologicalBitmaUri(bitmap));
-                            startActivity(Intent.createChooser(i,"Send image"));
-                        }
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                        }
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-                        }
-                    });
-                    return false;
-                });
-
-                // Скачивание изображения (в память устройства)
-
-                menu.add(0,3,0,R.string.download_image)
-                        .setOnMenuItemClickListener(menuItem -> {
+                new BottomSheet.Builder(this, ThemeUtils.getCurrentBottomTheme()).sheet(R.menu.menu_press).listener((dialog, which) -> {
+                    switch (which) {
+                        case R.id.copy_link_url:
+                            String copyimageurl = wavierHottestResult.getExtra();
+                            ClipboardManager manager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("label",copyimageurl);
+                            manager.setPrimaryClip(clip);
+                            Toast.makeText(WebActivity.this, R.string.copy, Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.send_img:
+                            Picasso.get().load(DownloadImageUrl).into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    Intent i = new Intent(Intent.ACTION_SEND);
+                                    i.setType("image/*");
+                                    i.putExtra(Intent.EXTRA_STREAM, geologicalBitmaUri(bitmap));
+                                    startActivity(Intent.createChooser(i,getString(R.string.send_image)));
+                                }
+                                @Override
+                                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                }
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                }
+                            });
+                            break;
+                        case R.id.download_img:
                             int Permission_all = 1;
                             String Permission[] = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
                             if(!hasPermission(WebActivity.this,Permission))
@@ -551,12 +543,14 @@ public class WebActivity extends AppCompatActivity {
                                 request.allowScanningByMediaScanner();
                                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,filename);
-                                DownloadManager manager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
-                                manager.enqueue(request);
+                                DownloadManager managers = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+                                managers.enqueue(request);
                                 Toast.makeText(WebActivity.this, R.string.download, Toast.LENGTH_SHORT).show();
                             }
-                            return false;
-                        });
+                            break;
+                    }
+                }).show();
+
         }
         }
     }

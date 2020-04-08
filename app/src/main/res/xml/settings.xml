@@ -97,7 +97,7 @@
 
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://t.me/dmitrylaas" />
+            android:data="https://t.me/dmitrylaas_ch" />
 
         </Preference>
 
@@ -118,13 +118,7 @@
 
         <Preference
             android:title="@string/licenses"
-            android:key="licenses">
-
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/dmitrylaas/Evolution-Browser/licenses/index.html" />
-
-        </Preference>
+            android:key="licenses" />
 
         <Preference
             android:title="@string/about_t"

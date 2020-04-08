@@ -42,12 +42,11 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1.5dp"
             android:layout_gravity="top"
             android:layout_below="@+id/shadow_toolbar"
             android:background="?android:colorPrimary"
-            android:backgroundTint="?android:colorPrimary"
-            android:progressDrawable="@drawable/gradient_progress" />
+            android:backgroundTint="?android:colorPrimary"/>
 
     </FrameLayout>
 

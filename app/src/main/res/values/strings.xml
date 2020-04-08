@@ -1,14 +1,10 @@
 <resources>
 
     <string name="app_name">Evolution</string>
-    <string name="subtitle">Fast, easy, safe</string>
-    <string name="dialog_t">Warning!</string>
-    <string name="dialog_s">Hello! I present you a completely redesigned and reinterpreted version of my project - Evolution Browser. In fact, this is a rebirth of the previous project - Evo Browser, but with many changes in all senses of the word. Starting with the design and ending with the functionality. Good use!</string>
-    <string name="ok">Ok</string>
     <string name="error_t">Access error</string>
     <string name="error_s">This could be due to a lack of Internet connection . Please check if Your device is connected to the Internet . Internet or Wi-Fi network and try reloading the web page</string>
     <string name="reload">Reload</string>
-    <string name="search_bar">Search</string>
+    <string name="search_bar">Search in Google</string>
     <string name="speech_prompt">Say something &#8230;</string>
     <string name="speech_not_supported">Sorry! Your device does not support voice input</string>
     <string name="img_chooser">Selected image</string>
@@ -16,6 +12,7 @@
     <string name="sms_no">SMS app not installed</string>
     <string name="back">Back</string>
     <string name="forward">Forward</string>
+    <string name="bottom_sheet">Selected action</string>
     <string name="send_image">Send image</string>
     <string name="copy_link">Copy link</string>
     <string name="copy">Copy</string>
@@ -59,6 +56,6 @@
     <string name="github">GitHub</string>
     <string name="info">Information</string>
     <string name="about_t">About app</string>
-    <string name="about_s">Version 5.0</string>
+    <string name="about_s">Version 6.0</string>
 
 </resources>

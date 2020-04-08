@@ -2,7 +2,6 @@ package com.evo.browser.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.evo.browser.R;
 import com.evo.browser.utils.ThemeUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -84,14 +82,6 @@ public class MainActivity extends AppCompatActivity {
            }
            return false;
        });
-       // Код связывающий показание первого, предупреждающего диалога
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
-
-        if (firstStart) {
-            showStartDialog();
-        }
-
     }
     // Так называемая обработка дйствия пр нажатии "Enter"
     private void performSearch() {
@@ -117,19 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    // Единичный показ предупреждающего диалога (при самом первом запуске приложения)
-    private void showStartDialog() {
-        new MaterialAlertDialogBuilder(MainActivity.this, R.style.AlertDialogTheme)
-                .setTitle(R.string.dialog_t)
-                .setMessage(R.string.dialog_s)
-                .setPositiveButton(R.string.ok, (dialogInterface, i) -> dialogInterface.dismiss())
-                .show();
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("firstStart", false);
-        editor.apply();
-    }
     // Вызов Google Voice Search, преобразование сказанного в текст и ввод преобразованного в поисковую строку соответственно
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

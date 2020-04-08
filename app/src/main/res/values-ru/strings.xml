@@ -1,14 +1,10 @@
 <resources>
 
     <string name="app_name">Evolution</string>
-    <string name="subtitle">Быстрый, лёкгий, безопасный</string>
-    <string name="dialog_t">Внимание!</string>
-    <string name="dialog_s">Здравствуйте! Представляю Вам полностью переработанную и переосмысленную версию моего проекта - Evolution Браузер. По сути, это перерождение прошлого проекта - Evo Browser, но со многими изменениями во всех смыслах этого слова. Начиная с дизайна, заканчивая функционалом. Удачного использования!</string>
-    <string name="ok">Ок</string>
     <string name="error_t">Ошибка доступа</string>
     <string name="error_s">Это могло произойти из-за отсутствия интернет соединения. Пожалуйста, проверьте, подключено ли Ваше устройство к моб. интернету или Wi-Fi сети и попробуйте перезагрузить веб-страницу</string>
     <string name="reload">Перезагрузить</string>
-    <string name="search_bar">Поиск</string>
+    <string name="search_bar">Поиск в Google</string>
     <string name="speech_prompt">Скажите что-нибудь &#8230;</string>
     <string name="speech_not_supported">Извините! Ваше устройство не поддерживает речевой ввод</string>
     <string name="img_chooser">Выберите изображения</string>
@@ -16,6 +12,7 @@
     <string name="sms_no">SMS приложение не установлено</string>
     <string name="back">Назад</string>
     <string name="forward">Вперёд</string>
+    <string name="bottom_sheet">Выберете действие</string>
     <string name="exit_t">Вы хотите выйти?</string>
     <string name="exit_s">Вы намерены выйти? При выходе все действия будут остановлены и не сохранятся в браузере.</string>
     <string name="yes">Да</string>
@@ -55,10 +52,10 @@
     <string name="cookie_s">Без cookie Вы не сможете быстро авторизоваться на сайте, а так же Ваши настройки не сохранятся</string>
     <string name="licenses">Лицензии открытого ПО</string>
     <string name="сommunication">Связь</string>
-    <string name="telegram">Телеграм</string>
+    <string name="telegram">Telegram</string>
     <string name="github">GitHub</string>
     <string name="info">Информация</string>
     <string name="about_t">О приложении</string>
-    <string name="about_s">Версия 5.0</string>
+    <string name="about_s">Версия 6.0</string>
 
 </resources>
