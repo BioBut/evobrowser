@@ -25,7 +25,7 @@ Evolution Браузер - это перерождение предыдущег�
 * [BottomSheet](https://github.com/soarcn/BottomSheet) - использование данной библотеки в версии 6.0 и выше
 
 ### Скриншот
-![Screnshot](https://github.com/dmitrylaas/Evolution-Browser/blob/master/Art/Screenshot.png)
+![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner-evo.jpg)
 
 ### Лицензия
 ```
