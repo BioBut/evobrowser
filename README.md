@@ -1,4 +1,4 @@
-![icon](https://github.com/dmitrylaas/Evolution-Browser/blob/master/app/src/main/res/mipmap-xhdpi/ic_launcher.png)
+![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner-evo.jpg)
 
 # Evolution Браузер
 
@@ -23,9 +23,6 @@ Evolution Браузер - это перерождение предыдущег�
 * [Cripty](https://github.com/F0x1d/Cripty) - позаимствован ToolBar
 * [Picasso](https://github.com/square/picasso) - использование данной библотеки в версии 5.0 и выше
 * [BottomSheet](https://github.com/soarcn/BottomSheet) - использование данной библотеки в версии 6.0 и выше
-
-### Скриншот
-![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner-evo.jpg)
 
 ### Лицензия
 ```
