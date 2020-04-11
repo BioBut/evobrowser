@@ -52,7 +52,7 @@
             android:src="@drawable/ic_news_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_gravity="center|top"
@@ -63,7 +63,7 @@
             android:src="@drawable/ic_mic_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_gravity="center|top"
@@ -75,7 +75,7 @@
             android:src="@drawable/ic_youtube_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_gravity="center|top"
@@ -87,7 +87,7 @@
             android:src="@drawable/ic_map_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_gravity="center|top"
@@ -98,7 +98,7 @@
             android:src="@drawable/ic_translate_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_gravity="center|top"
@@ -110,7 +110,7 @@
             android:src="@drawable/ic_settings_24dp"
             app:tint="@null"
             app:elevation="0.0dip"
-            app:backgroundTint="@color/colorAccent"/>
+            app:backgroundTint="?android:colorAccent"/>
 
     </FrameLayout>
 

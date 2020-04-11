@@ -8,7 +8,13 @@
 
         <SwitchPreference
             android:title="@string/night_theme"
+            android:summary="@string/night_theme_sum"
             android:key="night"/>
+
+        <SwitchPreference
+            android:title="@string/web_dark"
+            android:summary="@string/web_dark_sum"
+            android:key="@string/web_dark"/>
 
     </PreferenceCategory>
 
@@ -91,6 +97,15 @@
     <PreferenceCategory
         android:icon="@drawable/contacts_outline"
         android:title="@string/сommunication">
+
+        <Preference
+            android:title="@string/pda">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://4pda.ru/forum/index.php?showtopic=968330&amp;st=0#entry89584153" />
+
+        </Preference>
 
         <Preference
             android:title="@string/telegram">

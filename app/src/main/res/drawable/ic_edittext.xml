@@ -6,7 +6,7 @@
 
     <stroke
         android:width="0.8dp"
-        android:color="@color/colorAccent" />
+        android:color="?android:colorAccent" />
 
     <solid
         android:color="?android:colorPrimary"/>

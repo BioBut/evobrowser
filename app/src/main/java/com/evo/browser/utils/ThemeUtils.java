@@ -13,6 +13,7 @@ public class ThemeUtils {
             return R.style.AppTheme;
         }
     }
+
     public static int getCurrentBottomTheme() {
         if (PreferenceManager.getDefaultSharedPreferences(App.getInstance().getApplicationContext()).getBoolean("night", false)) {
             return R.style.BottomSheetDark;

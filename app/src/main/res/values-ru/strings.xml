@@ -19,9 +19,9 @@
     <string name="no">Нет</string>
     <string name="send_image">Поделиться изображением</string>
     <string name="copy_link">Скопировать ссылку</string>
-    <string name="copy">Скопировано</string>
+    <string name="copy">Ссылка скопирована</string>
     <string name="download_image">Скачать изображение</string>
-    <string name="download">Загрузка</string>
+    <string name="download">Скачивание изображения</string>
     <string name="settings">Настройки</string>
     <string name="orientation_t">Отключить автоповорт</string>
     <string name="orientation_s">После отключения автоповорта экрана, приложение всегда будет открываться в портретном режиме</string>
@@ -36,6 +36,9 @@
     <string name="personalization">Персонализация</string>
     <string name="theme">Темы</string>
     <string name="night_theme">Ночная тема</string>
+    <string name="night_theme_sum">Меняет тему только самого приложения</string>
+    <string name="web_dark">Ночная веб страница</string>
+    <string name="web_dark_sum">Данная опция работает не на всех устройствах и может окрашивать веб страницы некорректно</string>
     <string name="main">Основное</string>
     <string name="pc_t">Режим полной версии сайта</string>
     <string name="pc_s">Отображение полной версии сайта</string>
@@ -52,10 +55,11 @@
     <string name="cookie_s">Без cookie Вы не сможете быстро авторизоваться на сайте, а так же Ваши настройки не сохранятся</string>
     <string name="licenses">Лицензии открытого ПО</string>
     <string name="сommunication">Связь</string>
+    <string name="pda">4PDA</string>
     <string name="telegram">Telegram</string>
     <string name="github">GitHub</string>
     <string name="info">Информация</string>
     <string name="about_t">О приложении</string>
-    <string name="about_s">Версия 6.0</string>
+    <string name="about_s">Версия 6.2</string>
 
 </resources>

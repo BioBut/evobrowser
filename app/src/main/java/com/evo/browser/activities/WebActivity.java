@@ -39,7 +39,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -47,12 +47,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.evo.browser.R;
 import com.evo.browser.utils.ThemeUtils;
 import com.evo.browser.view.CenteredToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -70,6 +73,7 @@ public class WebActivity extends AppCompatActivity {
     private CenteredToolbar mToolbar;
     private SharedPreferences mSharedPreferences;
     private Context mContext;
+    private RelativeLayout main;
     private static final String TAG = WebActivity.class.getSimpleName();
     private String mCM;
     private ValueCallback<Uri> mUM;
@@ -154,12 +158,14 @@ public class WebActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse("market://details?id=" + appId));
                     WebActivity.this.startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     return true;
 
                 } catch (ActivityNotFoundException e) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     WebActivity.this.startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     return true;
                 }
             }
@@ -173,6 +179,7 @@ public class WebActivity extends AppCompatActivity {
 
                     if (mapIntent.resolveActivity(getPackageManager()) != null) {
                         startActivity(mapIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     return true;
                 }
@@ -184,6 +191,7 @@ public class WebActivity extends AppCompatActivity {
 
                     if (mapIntent.resolveActivity(getPackageManager()) != null) {
                         startActivity(mapIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     return true;
                 }
@@ -194,6 +202,7 @@ public class WebActivity extends AppCompatActivity {
 
                 if (url.startsWith("tel:")) {
                     startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 } else {
                     view.loadUrl(url);
                 }
@@ -242,6 +251,7 @@ public class WebActivity extends AppCompatActivity {
         // Настройка для переключения тем
         setTheme(ThemeUtils.getCurrentTheme());
         setContentView(R.layout.activity_web);
+        main = findViewById(R.id.main);
         // Настройка ToolBar
         mToolbar = findViewById(R.id.toolbar);
         // Меню ToolBar
@@ -264,7 +274,7 @@ public class WebActivity extends AppCompatActivity {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("label", url);
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(getApplicationContext(), R.string.copy, Toast.LENGTH_SHORT).show();
+            Snackbar.make(main, R.string.copy, Snackbar.LENGTH_SHORT).show();
             return true;
         });
         mToolbar.getMenu().findItem(R.id.setting).setOnMenuItemClickListener(item -> {
@@ -315,7 +325,7 @@ public class WebActivity extends AppCompatActivity {
             // Реализация просмотра видео-контента в полноэкранном режиме
 
             private View mCustomView;
-            private WebChromeClient.CustomViewCallback mCustomViewCallback;
+            private CustomViewCallback mCustomViewCallback;
             private int mOriginalOrientation;
             private int mOriginalSystemUiVisibility;
 
@@ -337,7 +347,7 @@ public class WebActivity extends AppCompatActivity {
                 this.mCustomViewCallback = null;
             }
 
-            public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback)
+            public void onShowCustomView(View paramView, CustomViewCallback paramCustomViewCallback)
             {
                 if (this.mCustomView != null)
                 {
@@ -473,7 +483,7 @@ public class WebActivity extends AppCompatActivity {
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(url, contentDisposition, mimeType));
             DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             dm.enqueue(request);
-            Toast.makeText(getApplicationContext(), R.string.download_toast, Toast.LENGTH_LONG).show();
+            Snackbar.make(main, R.string.download_toast, Snackbar.LENGTH_SHORT).show();
         });
 
     }
@@ -498,7 +508,7 @@ public class WebActivity extends AppCompatActivity {
                             ClipboardManager manager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clip = ClipData.newPlainText("label",copyimageurl);
                             manager.setPrimaryClip(clip);
-                            Toast.makeText(WebActivity.this, R.string.copy, Toast.LENGTH_SHORT).show();
+                            Snackbar.make(main, R.string.copy, Snackbar.LENGTH_SHORT).show();
                             break;
                         case R.id.send_img:
                             Picasso.get().load(DownloadImageUrl).into(new Target() {
@@ -545,7 +555,7 @@ public class WebActivity extends AppCompatActivity {
                                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,filename);
                                 DownloadManager managers = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
                                 managers.enqueue(request);
-                                Toast.makeText(WebActivity.this, R.string.download, Toast.LENGTH_SHORT).show();
+                                Snackbar.make(main, R.string.download, Snackbar.LENGTH_SHORT).show();
                             }
                             break;
                     }
@@ -600,7 +610,7 @@ public class WebActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager())!=null) {
             startActivity(intent);
         } else {
-            Toast.makeText(mContext, R.string.sms_no,Toast.LENGTH_SHORT).show();
+            Snackbar.make(main, R.string.sms_no, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -610,6 +620,7 @@ public class WebActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Boolean dark = mSharedPreferences.getBoolean(getString(R.string.web_dark), false);
         Boolean orientation = mSharedPreferences.getBoolean(getString(R.string.orientation_t), false);
         Boolean statusbar = mSharedPreferences.getBoolean(getString(R.string.status_t), false);
         Boolean screen = mSharedPreferences.getBoolean(getString(R.string.screen_t), false);
@@ -621,6 +632,18 @@ public class WebActivity extends AppCompatActivity {
         Boolean zoom = mSharedPreferences.getBoolean(getString(R.string.zoom_t), false);
         Boolean supportJavaScript = mSharedPreferences.getBoolean(getString(R.string.js_t), true);
         Boolean cookies = mSharedPreferences.getBoolean(getString(R.string.cookie_t), true);
+
+        // Настройка режима "Ночная веб-страница"
+
+        if (dark) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+            }
+        } else {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+            }
+        }
 
         // Настройка режима "Отключить автоповорт"
 

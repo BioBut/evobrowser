@@ -19,7 +19,7 @@
 
         <item name="colorPrimary">@color/colorDark</item>
         <item name="colorPrimaryDark">@color/colorDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
         <item name="android:windowBackground">@color/colorDark</item>
         <item name="android:navigationBarColor">@color/colorDark</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
@@ -82,7 +82,7 @@
 
     <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
 
-        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="backgroundTint">?android:colorAccent</item>
         <item name="rippleColor">@color/colorGreyLight</item>
         <item name="android:textColor">?android:colorPrimary</item>
         <item name="android:textAllCaps">false</item>
@@ -92,7 +92,7 @@
     <style name="Alert.Button.Neutral" parent="Widget.MaterialComponents.Button.TextButton">
 
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">@color/colorAccent</item>
+        <item name="rippleColor">?android:colorAccent</item>
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textAllCaps">false</item>
 
