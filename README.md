@@ -1,4 +1,4 @@
-![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner-evo.jpg)
+![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner.jpg)
 
 # Evolution Браузер
 
