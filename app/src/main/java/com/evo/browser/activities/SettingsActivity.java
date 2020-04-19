@@ -27,7 +27,9 @@ public class SettingsActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("night", false)
                 ? R.drawable.ic_arrow_back_white_24dp : R.drawable.ic_arrow_back_black_24dp);
         // Обработка нажатия кнопки "Назад" (в Toolbar)
-        mToolbar.setNavigationOnClickListener(v -> finish());
+        mToolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
         // Менеджер фрагмента(ов)
         getSupportFragmentManager()
                 .beginTransaction()

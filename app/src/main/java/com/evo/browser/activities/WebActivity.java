@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
@@ -33,6 +34,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
@@ -55,7 +57,10 @@ import com.evo.browser.R;
 import com.evo.browser.utils.ThemeUtils;
 import com.evo.browser.view.CenteredToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -65,6 +70,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class WebActivity extends AppCompatActivity {
@@ -74,6 +80,7 @@ public class WebActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private Context mContext;
     private RelativeLayout main;
+    private ExtendedFloatingActionButton button;
     private static final String TAG = WebActivity.class.getSimpleName();
     private String mCM;
     private ValueCallback<Uri> mUM;
@@ -81,6 +88,12 @@ public class WebActivity extends AppCompatActivity {
     private final static int FCR=1;
     SwipeRefreshLayout swipeRefreshLayout;
     ProgressBar progressBar;
+    String current_page_url = "https://google.com/search?q=";
+
+    public static final String PREFERENCES = "PREFERENCES_NAME";
+    public static final String WEB_LINKS = "links";
+    public static final String WEB_TITLE = "title";
+
 
     // Код связанный с вызовом Premissions
 
@@ -141,11 +154,13 @@ public class WebActivity extends AppCompatActivity {
 
     private class WebViewer extends WebViewClient {
 
-        private String currentUrl;
+        private String url;
 
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            mWeb.loadUrl(url);
 
             // Открытие ссылок в Google Play
 
@@ -213,33 +228,40 @@ public class WebActivity extends AppCompatActivity {
                 return true;
             }
 
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            progressBar.setVisibility(View.VISIBLE);
+            current_page_url = url;
+            invalidateOptionsMenu();
+        }
+
         // Некий фикс неодекватного поведения SwipeRefreshLayout
 
         @Override
         public void onPageFinished(WebView view, String url) {
             swipeRefreshLayout.setRefreshing(false);
-            currentUrl = url;
+            current_page_url = url;
+            invalidateOptionsMenu();
             super.onPageFinished(view, url);
             WebActivity.this.mToolbar.setTitle(view.getTitle());
+            invalidateOptionsMenu();
         }
 
-        // Показ диалога об ошибке загрузки страницы (например, если Вы отправляете запрос, но при этом отсутсвует интернет соединение, то сработает этот код и покажет диалог)
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mWeb.loadUrl(request.getUrl().toString());
+            }
+            return true;
+        }
+
+        // Показ layout об ошибке загрузки страницы (например, если Вы отправляете запрос, но при этом отсутсвует интернет соединение, то сработает этот код и покажет диалог)
 
         public void onReceivedError(WebView mWeb, int errorCode, String description, String failingUrl) {
-            try {
-                mWeb.stopLoading();
-            } catch (Exception e) {
-            }
-
-            if (mWeb.canGoBack()) {
-                mWeb.goBack();
-            }
-
-            new MaterialAlertDialogBuilder(WebActivity.this, R.style.AlertDialogTheme)
-                    .setTitle(R.string.error_t)
-                    .setMessage(R.string.error_s)
-                    .setPositiveButton(R.string.reload, (dialogInterface, i) -> mWeb.reload())
-                    .show();
+            FrameLayout error = findViewById(R.id.error_page);
+            error.setVisibility(View.VISIBLE);
+            invalidateOptionsMenu();
             super.onReceivedError(mWeb, errorCode, description, failingUrl);
         }
     }
@@ -252,21 +274,81 @@ public class WebActivity extends AppCompatActivity {
         setTheme(ThemeUtils.getCurrentTheme());
         setContentView(R.layout.activity_web);
         main = findViewById(R.id.main);
+        // Страница ошибки загрузки контента
+        FrameLayout error = findViewById(R.id.error_page);
+        // Обработка нажатия на кнопку "Перезагрузить"
+        button = findViewById(R.id.reload);
+        button.setOnClickListener(v -> {
+            // Убираем layout ошибки
+            error.setVisibility(View.GONE);
+            // Перезагружаем WebView
+            mWeb.reload();
+        });
         // Настройка ToolBar
         mToolbar = findViewById(R.id.toolbar);
         // Меню ToolBar
         mToolbar.inflateMenu(R.menu.menu_main);
-        mToolbar.getMenu().findItem(R.id.back).setOnMenuItemClickListener(item -> {
-            if(mWeb.canGoBack()){
-                mWeb.goBack();
-            }
+        mToolbar.getMenu().findItem(R.id.turbo).setOnMenuItemClickListener(item -> {
+            Snackbar.make(main, R.string.fast_web_descp, Snackbar.LENGTH_SHORT).show();
             return false;
         });
-        mToolbar.getMenu().findItem(R.id.forward).setOnMenuItemClickListener(item -> {
-            if(mWeb.canGoForward()){
-                mWeb.goForward();
-            }
+        mToolbar.getMenu().findItem(R.id.incognito).setOnMenuItemClickListener(item -> {
+            Snackbar.make(main, R.string.incognito_descp, Snackbar.LENGTH_SHORT).show();
             return false;
+        });
+        mToolbar.getMenu().findItem(R.id.star).setOnMenuItemClickListener(item -> {
+            String message;
+            SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+            String jsonLink = sharedPreferences.getString(WEB_LINKS, null);
+            String jsonTitle = sharedPreferences.getString(WEB_TITLE, null);
+
+            if (jsonLink != null && jsonTitle != null) {
+                Gson gson = new Gson();
+                ArrayList<String> linkList = gson.fromJson(jsonLink, new TypeToken<ArrayList<String>>() {
+                }.getType());
+                ArrayList<String> titleList = gson.fromJson(jsonTitle, new TypeToken<ArrayList<String>>() {
+                }.getType());
+
+                if (linkList.contains(current_page_url)) {
+                    linkList.remove(current_page_url);
+                    titleList.remove(mWeb.getTitle().trim());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(WEB_LINKS, new Gson().toJson(linkList));
+                    editor.putString(WEB_TITLE, new Gson().toJson(titleList));
+                    editor.apply();
+                    message = getString(R.string.bookmark_remove);
+                    MenuItem remBook = mToolbar.getMenu().findItem(R.id.star);
+                    remBook.setTitle(R.string.bookmark_add);
+
+                } else {
+                    linkList.add(current_page_url);
+                    titleList.add(mWeb.getTitle().trim());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(WEB_LINKS, new Gson().toJson(linkList));
+                    editor.putString(WEB_TITLE, new Gson().toJson(titleList));
+                    editor.apply();
+                    message = getString(R.string.bookmark_plus);
+                    MenuItem plusBook = mToolbar.getMenu().findItem(R.id.star);
+                    plusBook.setTitle(R.string.bookmark_rem);
+                }
+
+            } else {
+                ArrayList<String> linkList = new ArrayList<>();
+                ArrayList<String> titleList = new ArrayList<>();
+                linkList.add(current_page_url);
+                titleList.add(mWeb.getTitle());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(WEB_LINKS, new Gson().toJson(linkList));
+                editor.putString(WEB_TITLE, new Gson().toJson(titleList));
+                editor.apply();
+                message = getString(R.string.bookmark_plus);
+                MenuItem plusBook = mToolbar.getMenu().findItem(R.id.star);
+                plusBook.setTitle(R.string.bookmark_rem);
+            }
+            Snackbar snackbar = Snackbar.make(main, message, Snackbar.LENGTH_LONG);
+            snackbar.show();
+            invalidateOptionsMenu();
+            return true;
         });
         mToolbar.getMenu().findItem(R.id.copy_link).setOnMenuItemClickListener(item -> {
             mWeb.findViewById(R.id.web);
@@ -300,11 +382,13 @@ public class WebActivity extends AppCompatActivity {
         mWeb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mWeb.setFocusable(true);
         mWeb.setFocusableInTouchMode(true);
-        mWeb.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         mWeb.setBackgroundColor(Color.TRANSPARENT);
         mWeb.clearCache(false);
         mWeb.getSettings().setLoadWithOverviewMode(true);
         mWeb.getSettings().setUseWideViewPort(true);
+        mWeb.getSettings().setLoadsImagesAutomatically(true);
+        mWeb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        mWeb.getSettings().setAppCacheEnabled(false);
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
 
@@ -365,14 +449,17 @@ public class WebActivity extends AppCompatActivity {
             // Настройка ProgressBar
 
             @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                progressBar.setProgress(newProgress);
+            public void onProgressChanged(WebView view, int progress) {
+                progressBar.setProgress(progress);
 
-                if (newProgress==100) {
+                if(progress < 100 && error.getVisibility() == View.GONE) {
+                    progressBar.setVisibility(View.VISIBLE);
+                } else if (progress == 100) {
                     progressBar.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                 }
+
             }
 
             // Загрузка файлов на сайты
@@ -449,8 +536,6 @@ public class WebActivity extends AppCompatActivity {
 
         CookieManager.getInstance().setAcceptCookie(true);
         WebSettings webset = mWeb.getSettings();
-        Intent intent = getIntent();
-        String search_bar = intent.getStringExtra("text");
         webset.setJavaScriptEnabled(true);
         webset.setAllowFileAccess(true);
         webset.setBuiltInZoomControls(false);
@@ -459,9 +544,20 @@ public class WebActivity extends AppCompatActivity {
         webset.setDomStorageEnabled(true);
         webset.setAllowFileAccess(true);
 
-        // Передача введённых данных для поиска + открытие ссылок в приложении
+        // Передача + подстановка данных из строки ввода
 
-        mWeb.loadUrl("https://google.com/search?q=" + search_bar);
+        Intent intents = getIntent();
+        String search_bar = intents.getStringExtra("text");
+        mWeb.loadUrl(current_page_url + search_bar);
+
+        // Тоже самое как и со строкой ввода, но только уже с закладками
+
+        Intent intent_url = getIntent();
+        String url_open = intent_url.getStringExtra("page_url");
+        mWeb.loadUrl(url_open);
+
+        // Открытие ссылок в приложении
+
         String loadurl = getIntent().getDataString();
         if (loadurl != null) {
             mWeb.loadUrl(loadurl);
@@ -620,7 +716,6 @@ public class WebActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Boolean dark = mSharedPreferences.getBoolean(getString(R.string.web_dark), false);
         Boolean orientation = mSharedPreferences.getBoolean(getString(R.string.orientation_t), false);
         Boolean statusbar = mSharedPreferences.getBoolean(getString(R.string.status_t), false);
         Boolean screen = mSharedPreferences.getBoolean(getString(R.string.screen_t), false);
@@ -629,21 +724,13 @@ public class WebActivity extends AppCompatActivity {
         Boolean geo = mSharedPreferences.getBoolean(getString(R.string.geo_t), true);
         Boolean password = mSharedPreferences.getBoolean(getString(R.string.pass_t), false);
         Boolean textsize = mSharedPreferences.getBoolean(getString(R.string.font_t), false);
-        Boolean zoom = mSharedPreferences.getBoolean(getString(R.string.zoom_t), false);
+        Boolean zoom = mSharedPreferences.getBoolean(getString(R.string.zoom_t), true);
+        Boolean dark = mSharedPreferences.getBoolean(getString(R.string.web_dark), false);
+        Boolean web_fast = mSharedPreferences.getBoolean(getString(R.string.fast_web), false);
+        Boolean web_cache = mSharedPreferences.getBoolean(getString(R.string.web_cache), false);
+        Boolean img_no_load = mSharedPreferences.getBoolean(getString(R.string.img_no_load_t), false);
         Boolean supportJavaScript = mSharedPreferences.getBoolean(getString(R.string.js_t), true);
         Boolean cookies = mSharedPreferences.getBoolean(getString(R.string.cookie_t), true);
-
-        // Настройка режима "Ночная веб-страница"
-
-        if (dark) {
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
-            }
-        } else {
-            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
-                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
-            }
-        }
 
         // Настройка режима "Отключить автоповорт"
 
@@ -672,9 +759,9 @@ public class WebActivity extends AppCompatActivity {
         // Настройка режима "Полная версия сайта"
 
         if (pc_mode) {
-            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50");
+            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36");
         } else {
-            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 5.1.1; Nexus 5 Build/LMY48B; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/43.0.2357.65 Mobile Safari/537.36");
+            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.111 Mobile Safari/537.36");
         }
 
         // Настройка режима "Инкогнито"
@@ -687,6 +774,10 @@ public class WebActivity extends AppCompatActivity {
             mWeb.clearFormData();
             mWeb.getSettings().setSavePassword(false);
             mWeb.getSettings().setSaveFormData(false);
+            mWeb.getSettings().setGeolocationEnabled(true);
+            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 5.0.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.111 Mobile Safari/537.36");
+            MenuItem turbo = mToolbar.getMenu().findItem(R.id.incognito);
+            turbo.setVisible(true);
 
         } else {
             mWeb.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
@@ -694,6 +785,10 @@ public class WebActivity extends AppCompatActivity {
             mWeb.clearCache(false);
             mWeb.getSettings().setSavePassword(true);
             mWeb.getSettings().setSaveFormData(true);
+            mWeb.getSettings().setGeolocationEnabled(true);
+            mWeb.getSettings().setUserAgentString("Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.111 Mobile Safari/537.36");
+            MenuItem turbo = mToolbar.getMenu().findItem(R.id.incognito);
+            turbo.setVisible(false);
         }
 
         // Отключение доступа к местоположению
@@ -732,6 +827,54 @@ public class WebActivity extends AppCompatActivity {
             mWeb.getSettings().setSupportZoom(false);
             mWeb.getSettings().setBuiltInZoomControls(false);
             mWeb.getSettings().setDisplayZoomControls(false);
+        }
+
+        // Настройка режима "Ночная веб-страница"
+
+        if (dark) {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+            }
+        } else {
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+                WebSettingsCompat.setForceDark(mWeb.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+            }
+        }
+
+        // Настройка "Режим Турбо"
+
+        if (web_fast) {
+            mWeb.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+            mWeb.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            mWeb.getSettings().setAppCacheEnabled(true);
+            MenuItem turbo = mToolbar.getMenu().findItem(R.id.turbo);
+            turbo.setVisible(true);
+        } else {
+            mWeb.getSettings().setRenderPriority(WebSettings.RenderPriority.NORMAL);
+            mWeb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            mWeb.getSettings().setAppCacheEnabled(false);
+            MenuItem turbo = mToolbar.getMenu().findItem(R.id.turbo);
+            turbo.setVisible(false);
+        }
+
+        // Настройка "Кэшировать веб страницы"
+
+        if (web_cache) {
+            mWeb.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            mWeb.getSettings().setAppCacheEnabled(true);
+        } else {
+            mWeb.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            mWeb.getSettings().setAppCacheEnabled(false);
+        }
+
+        // Настройка "Не загружать изображения"
+
+        if (img_no_load) {
+            mWeb.getSettings().setDomStorageEnabled(false);
+            mWeb.getSettings().setLoadsImagesAutomatically(false);
+        } else {
+            mWeb.getSettings().setDomStorageEnabled(true);
+            mWeb.getSettings().setLoadsImagesAutomatically(true);
         }
 
         // Настройка Cookie

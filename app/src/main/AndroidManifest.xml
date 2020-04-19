@@ -147,6 +147,8 @@
             android:label="@string/licenses"
             android:theme="@style/LicensesTheme"
             android:name=".activities.LicensesActivity"/>
+        <activity
+            android:name=".activities.BookmarksActivity"/>
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />

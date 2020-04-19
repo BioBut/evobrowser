@@ -2,10 +2,12 @@ package com.evo.browser.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,35 +37,34 @@ public class MainActivity extends AppCompatActivity {
         // Обработка нажатия на FAB, открытие ссылки с новостями
         button = findViewById(R.id.news);
         button.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://news.google.com/");
-            Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+            Intent intent = new Intent(this, WebActivity.class);
+            intent.putExtra("page_url", "https://news.google.com/");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
         // Обработка нажатия на FAB, запуск Google Voice Search
         button = findViewById(R.id.search_voice_btn);
         button.setOnClickListener(v -> promptSpeechInput());
-        // Обработка нажатия на FAB, открытие ссылки YouTube
-        button = findViewById(R.id.youtube);
+        // Обработка нажатия на FAB, открытие закладок
+        button = findViewById(R.id.bookmarks);
         button.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://youtube.com/");
-            Intent intent = new Intent (Intent.ACTION_VIEW, uri);
-            startActivity(intent);
+            Intent activitySetIntent = new Intent(getApplicationContext(), BookmarksActivity.class);
+            startActivity(activitySetIntent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
         // Обработка нажатия на FAB, открытие ссылки с картами
         button = findViewById(R.id.map);
         button.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://maps.google.com/");
-            Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+            Intent intent = new Intent(this, WebActivity.class);
+            intent.putExtra("page_url", "https://maps.google.com/");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
         // Обработка нажатия на FAB, открытие ссылки с переводчиком
         button = findViewById(R.id.translate);
         button.setOnClickListener(v -> {
-            Uri uri = Uri.parse("https://translate.google.com/");
-            Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+            Intent intent = new Intent(this, WebActivity.class);
+            intent.putExtra("page_url", "https://translate.google.com/");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
@@ -82,6 +83,38 @@ public class MainActivity extends AppCompatActivity {
            }
            return false;
        });
+        // Анимация картинки(логотипа) при старте (входе)
+        ImageView imagelogo = findViewById(R.id.ic_evo);
+        Animation logoAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        imagelogo.startAnimation(logoAnimation);
+        // Анимация поисковой строки при старте (входе)
+        TextInputEditText search = findViewById(R.id.search_bar);
+        Animation serAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        search.startAnimation(serAnimation);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_news = findViewById(R.id.news);
+        Animation fabAnimationN = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_news.startAnimation(fabAnimationN);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_voice = findViewById(R.id.search_voice_btn);
+        Animation fabAnimationV = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_voice.startAnimation(fabAnimationV);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_youtube = findViewById(R.id.bookmarks);
+        Animation fabAnimationY = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_youtube.startAnimation(fabAnimationY);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_map = findViewById(R.id.map);
+        Animation fabAnimationM = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_map.startAnimation(fabAnimationM);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_translate = findViewById(R.id.translate);
+        Animation fabAnimationT = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_translate.startAnimation(fabAnimationT);
+        // Анимация FAB при старте (входе)
+        FloatingActionButton fab_settings = findViewById(R.id.settings);
+        Animation fabAnimationS = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        fab_settings.startAnimation(fabAnimationS);
     }
     // Так называемая обработка дйствия пр нажатии "Enter"
     private void performSearch() {

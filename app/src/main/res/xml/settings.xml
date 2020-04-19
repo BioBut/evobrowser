@@ -11,11 +11,6 @@
             android:summary="@string/night_theme_sum"
             android:key="night"/>
 
-        <SwitchPreference
-            android:title="@string/web_dark"
-            android:summary="@string/web_dark_sum"
-            android:key="@string/web_dark"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -72,13 +67,40 @@
         <SwitchPreference
             android:title="@string/zoom_t"
             android:summary="@string/zoom_s"
-            android:key="@string/zoom_t" />
+            android:key="@string/zoom_t"
+            android:defaultValue="true"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:icon="@drawable/code_tags"
+        android:icon="@drawable/bacteria_outline"
+        android:title="@string/lab">
+
+        <SwitchPreference
+            android:title="@string/web_dark"
+            android:summary="@string/web_dark_sum"
+            android:key="@string/web_dark"/>
+
+        <SwitchPreference
+            android:title="@string/fast_web"
+            android:summary="@string/fast_web_sum"
+            android:key="@string/fast_web"/>
+
+        <SwitchPreference
+            android:title="@string/web_cache"
+            android:summary="@string/web_cache_sum"
+            android:key="@string/web_cache"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:icon="@drawable/bug_outline"
         android:title="@string/debug">
+
+        <SwitchPreference
+            android:title="@string/img_no_load_t"
+            android:summary="@string/img_no_load_s"
+            android:key="@string/img_no_load_t"/>
 
         <SwitchPreference
             android:title="@string/js_t"
@@ -112,7 +134,7 @@
 
         <intent
             android:action="android.intent.action.VIEW"
-            android:data="https://t.me/dmitrylaas_ch" />
+            android:data="https://t.me/dmitrylaas" />
 
         </Preference>
 
