@@ -2,6 +2,8 @@
 
 # Evolution Браузер
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+![RELEASE](https://img.shields.io/github/v/release/dmitrylaas/Evolution-Browser)
+![DOWNLOADS](https://img.shields.io/github/downloads/dmitrylaas/Evolution-Browser/total)
 
 Evolution Браузер - это перерождение предыдущего проекта Evo Browser, но с использованием новых, современных библиотек, новым дизайном, малым весом и базовым функционалом. Если кто из новичков искал продвинутый WebView, то можете заглянуть в исходный код и посмотреть как всё реализовано.
 >Исходники были выложены по доброй воле разработчика программы, поэтому если Вы берёте что-то из моего кода, пожалуйста оставляйте ссылку на этот репозиторий. Спасибо за понимание!
