@@ -11,7 +11,7 @@ android {
         applicationId "com.evo.browser"
         minSdkVersion 21
         targetSdkVersion 29
-        //releaseVersionCode 6.7
+        releaseVersionCode 6.7
         versionCode 66
         versionName "6.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
