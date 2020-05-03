@@ -8,8 +8,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 
 import com.evo.browser.R;
-import com.evo.browser.activities.LicensesActivity;
 import com.evo.browser.activities.MainActivity;
+import com.evo.browser.activities.WebActivity;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -28,12 +28,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         darkTheme.setOnPreferenceClickListener(preference -> {
             getActivity().moveTaskToBack(true);
             startActivity(new Intent(requireContext(), MainActivity.class));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return false;
         });
 
         Preference licenses = findPreference("licenses");
         licenses.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity(), LicensesActivity.class);
+            Intent intent = new Intent(getActivity(), WebActivity.class);
+            intent.putExtra("page_url", "file:///android_asset/index.html");
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return false;

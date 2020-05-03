@@ -91,6 +91,11 @@
             android:summary="@string/web_cache_sum"
             android:key="@string/web_cache"/>
 
+        <SwitchPreference
+            android:title="@string/text_wrap_t"
+            android:summary="@string/text_wrap_s"
+            android:key="@string/text_wrap_t"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

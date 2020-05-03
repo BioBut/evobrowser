@@ -1,8 +1,10 @@
 package com.evo.browser.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -43,9 +45,14 @@ public class BookmarksActivity extends AppCompatActivity {
     LinearLayout linearLayout;
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Код, который работает так, если приложение установлено на смартфоне, то автоповорот не работает, если на планшете - работает
+        if (getResources().getBoolean(R.bool.portrait_only)){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         setTheme(ThemeUtils.getCurrentTheme());
         setContentView(R.layout.activity_bookmarks);
 

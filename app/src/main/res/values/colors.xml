@@ -11,10 +11,9 @@
     <color name="colorDark">#000000</color>
     <color name="colorGreenDark">#43a047</color>
     <color name="colorGreenLight">#98ee99</color>
-    <color name="colorAmber">#FF9800</color>
     <color name="colorIncognitoForeground">#cfcfcf</color>
     <color name="colorIncognitoBackground">#373737</color>
-    <color name="shadowToolbarLight">#E0E0E0</color>
+    <color name="shadowToolbarLight">#e0e0e0</color>
     <color name="shadowToolbarDark">#424242</color>
 
 </resources>

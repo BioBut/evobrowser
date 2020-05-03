@@ -6,7 +6,6 @@
     <string name="bookmark_plus">Закладка добавлена</string>
     <string name="bookmark_remove">Закладка удалена</string>
     <string name="bookmark_add">Добавить в закладки</string>
-    <string name="bookmark_rem">Удалить закладку</string>
     <string name="delete_t">Удалить закладку?</string>
     <string name="delete_s">Действие отменить будет невозможно!</string>
     <string name="error_t">Ошибка доступа</string>
@@ -14,6 +13,8 @@
     <string name="reload">Перезагрузить</string>
     <string name="oops_t">Упс! Ничего нет</string>
     <string name="oops_s">Сделайте новую закладку и она появится тут. Для этого перейдите на нужный сайт, зайдите в меню, нажмите на <b>Добавить в закладки</b></string>
+    <string name="ota_t">Доступно обновление</string>
+    <string name="ota_s">В новой версии разработчииком были внесены улучшения и изменения. Обновление приложения рекомендуется к скачиванию и установке каждому пользувателю данного ПО. Загрузить обновление?</string>
     <string name="search_bar">Поиск в Google</string>
     <string name="speech_prompt">Скажите что-нибудь &#8230;</string>
     <string name="speech_not_supported">Извините! Ваше устройство не поддерживает речевой ввод</string>
@@ -64,6 +65,8 @@
     <string name="fast_web_descp">Включён режим "Турбо". Для отключения перейдите в настройки</string>
     <string name="web_cache">Кэшировать веб страницы</string>
     <string name="web_cache_sum">При включении этой опции браузер будет кэшировать страницы которые Вы посещали. При повторном посещении этой же страниц(ы) браузер будет загружать их из кэша</string>
+    <string name="text_wrap_t">Перенос текста</string>
+    <string name="text_wrap_s">При включении у браузера появляется возможность переноса текста при зуме веб страницы</string>
     <string name="debug">Для разработчиков</string>
     <string name="img_no_load_t">Не загружать изображения</string>
     <string name="img_no_load_s">При включении браузер не будет прогружать изображения и всё что с ними связано</string>
@@ -78,6 +81,6 @@
     <string name="github">GitHub</string>
     <string name="info">Информация</string>
     <string name="about_t">О приложении</string>
-    <string name="about_s">Версия 6.6</string>
+    <string name="about_s">Версия 7.0</string>
 
 </resources>

@@ -92,7 +92,7 @@
     <style name="Alert.Button.Neutral" parent="Widget.MaterialComponents.Button.TextButton">
 
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">?android:colorAccent</item>
+        <item name="rippleColor">?android:shadowColor</item>
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:textAllCaps">false</item>
 

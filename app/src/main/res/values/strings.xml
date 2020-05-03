@@ -6,7 +6,6 @@
     <string name="bookmark_plus">Bookmark added</string>
     <string name="bookmark_remove">Bookmark deleted</string>
     <string name="bookmark_add">Add to bookmarks</string>
-    <string name="bookmark_rem">Delete a bookmark</string>
     <string name="delete_t">Delete a bookmark?</string>
     <string name="delete_s">The action cannot be canceled!</string>
     <string name="error_t">Access error</string>
@@ -14,6 +13,8 @@
     <string name="reload">Reload</string>
     <string name="oops_t">Oops! Nothing</string>
     <string name="oops_s">Make a new bookmark and it will appear here. To do this, go to the desired site, go to the menu, click on <b>Add to bookmarks</b></string>
+    <string name="ota_t">An update is available</string>
+    <string name="ota_s">In the new version, the developer made improvements and changes. Updating the app is recommended for downloading and installing each user of this SOFTWARE. Download the update?</string>
     <string name="search_bar">Search in Google</string>
     <string name="speech_prompt">Say something &#8230;</string>
     <string name="speech_not_supported">Sorry! Your device does not support voice input</string>
@@ -64,6 +65,8 @@
     <string name="fast_web_descp">Turbo mode is enabled. To disable it go to settings</string>
     <string name="web_cache">To cache a web page</string>
     <string name="web_cache_sum">When this option is enabled, the browser will cache the pages you have visited. When you visit the same page(s) again, the browser will load them from the cache</string>
+    <string name="text_wrap_t">Text wrap</string>
+    <string name="text_wrap_s">When enabled the browser will be able to transfer text when the web page is zoomed in</string>
     <string name="debug">For developers</string>
     <string name="img_no_load_t">Don\'t upload images</string>
     <string name="img_no_load_s">When enabled the browser will not load images and everything related to them</string>
@@ -78,6 +81,6 @@
     <string name="github">GitHub</string>
     <string name="info">Information</string>
     <string name="about_t">About app</string>
-    <string name="about_s">Version 6.6</string>
+    <string name="about_s">Version 7.0</string>
 
 </resources>

@@ -18,11 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="TITLE"
         android:textColor="?android:colorAccent"
         android:textSize="18sp"
         android:textStyle="normal|bold"/>
@@ -34,19 +33,11 @@
         android:layout_below="@+id/title"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="LINK"
         android:textSize="15sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_star_24dp"
-            android:layout_gravity="center|right"
-            android:layout_marginRight="15dp"/>
 
     </androidx.cardview.widget.CardView>
 

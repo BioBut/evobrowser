@@ -1,19 +1,21 @@
 package com.evo.browser.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.evo.browser.R;
 import com.evo.browser.utils.ThemeUtils;
+import com.evo.browser.utils.UpdateUtils;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -26,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton button;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Код, который работает так, если приложение установлено на смартфоне, то автоповорот не работает, если на планшете - работает
+        if (getResources().getBoolean(R.bool.portrait_only)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         // Настройка для переключения тем
         setTheme(ThemeUtils.getCurrentTheme());
+        new UpdateUtils().execute(this);
         setContentView(R.layout.activity_main);
         // Связка строки ввода
         search_bar = findViewById(R.id.search_bar);
@@ -83,38 +91,6 @@ public class MainActivity extends AppCompatActivity {
            }
            return false;
        });
-        // Анимация картинки(логотипа) при старте (входе)
-        ImageView imagelogo = findViewById(R.id.ic_evo);
-        Animation logoAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        imagelogo.startAnimation(logoAnimation);
-        // Анимация поисковой строки при старте (входе)
-        TextInputEditText search = findViewById(R.id.search_bar);
-        Animation serAnimation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        search.startAnimation(serAnimation);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_news = findViewById(R.id.news);
-        Animation fabAnimationN = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_news.startAnimation(fabAnimationN);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_voice = findViewById(R.id.search_voice_btn);
-        Animation fabAnimationV = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_voice.startAnimation(fabAnimationV);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_youtube = findViewById(R.id.bookmarks);
-        Animation fabAnimationY = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_youtube.startAnimation(fabAnimationY);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_map = findViewById(R.id.map);
-        Animation fabAnimationM = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_map.startAnimation(fabAnimationM);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_translate = findViewById(R.id.translate);
-        Animation fabAnimationT = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_translate.startAnimation(fabAnimationT);
-        // Анимация FAB при старте (входе)
-        FloatingActionButton fab_settings = findViewById(R.id.settings);
-        Animation fabAnimationS = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        fab_settings.startAnimation(fabAnimationS);
     }
     // Так называемая обработка дйствия пр нажатии "Enter"
     private void performSearch() {
@@ -140,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
     // Вызов Google Voice Search, преобразование сказанного в текст и ввод преобразованного в поисковую строку соответственно
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,5 +135,29 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+    // OTA Обновления
+    public void Update(final Integer lastAppVersion) {
+        runOnUiThread(() -> new MaterialAlertDialogBuilder(MainActivity.this, R.style.AlertDialogTheme)
+                .setTitle(R.string.ota_t)
+                .setMessage(R.string.ota_s)
+                // При нажати на "Да", генерируем ссылку и открываем её в WebView + автоматическое скачивание
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    Intent intent = new Intent(this, WebActivity.class);
+                    String apkUrl = "https://github.com/dmitrylaas/Evolution-Browser/releases/download/" + lastAppVersion + "/app-release.apk";
+                    intent.putExtra("page_url", (apkUrl));
+                    intent.setData(Uri.parse(apkUrl));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    dialogInterface.dismiss();
+                })
+                // При нажатии на "Нет", останавливаем менедждер и скрываем диалог
+                .setNeutralButton(R.string.no, (dialogInterface, i) -> {
+                    // Ниже приведена строка, если хотим, чтобы уведомление, при нажатии на кнопку "Нет", больше не показывалось вообще
+                    /**SettingsManager.put(MainActivity.this, "LastIgnoredUpdateVersion", lastAppVersion.toString());**/
+                    dialogInterface.dismiss();
+                })
+                .show());
     }
 }

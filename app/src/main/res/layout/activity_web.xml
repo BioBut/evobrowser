@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorPrimary"
-    android:orientation="vertical">
+    android:background="?android:colorPrimary">
 
     <com.evo.browser.view.CenteredToolbar
         android:id="@+id/toolbar"
@@ -16,7 +15,7 @@
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -27,9 +26,7 @@
             <WebView
                 android:id="@+id/web"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="?android:colorPrimary" />
+                android:layout_height="match_parent"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -39,10 +36,10 @@
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:layout_gravity="top"
-            android:layout_below="@+id/shadow_toolbar"
+            android:layout_below="@+id/toolbar"
             android:background="?android:colorPrimary"
             android:backgroundTint="?android:colorPrimary"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </FrameLayout>
 
