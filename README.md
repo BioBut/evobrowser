@@ -1,34 +1,34 @@
 ![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/new.jpg)
 
-# Evolution Браузер
+# Evolution Browser
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) ![RELEASE](https://img.shields.io/github/v/release/dmitrylaas/Evolution-Browser) ![DOWNLOADS](https://img.shields.io/github/downloads/dmitrylaas/Evolution-Browser/total)
 
-Evolution Браузер - это перерождение предыдущего проекта Evo Browser, но с использованием новых, современных библиотек, новым дизайном, малым весом и базовым функционалом. Если кто из новичков искал продвинутый WebView, то можете заглянуть в исходный код и посмотреть как всё реализовано.
->Исходники были выложены по доброй воле разработчика программы, поэтому если Вы берёте что-то из моего кода, пожалуйста оставляйте ссылку на этот репозиторий. Спасибо за понимание!
+Evolution Browser - this is a rebirth of the previous Evo Browser project, but with the use of new, modern libraries, a new design, low weight and basic functionality. If any of the newcomers were looking for an advanced WebView, you can look at the source code and see how everything is implemented.
+>The source code was posted by the program developer's free will, so if you take something from my code, please leave a link to this repository. Thank you for understanding!
 
-### Особенности
-* Это полностью продвинутый WebView
-* Стандартные возможности (загрузка, скачивание файлов, просмотр видео в полноэкранном режиме, Long Press и т. д.)
-* Минималистичный дизайн
-* Ночной режим (не считаю это особенностью, но для кого-то это очень важно)
-* Режим "Ночная веб страница" (начиная с версии 6.2)
-* Пернос текста при зуме (начиная с версии 7.0)
-* OTA обновления (начиная с версии 7.0)
-* Все сервисы от Google (новости, карты, переводчик)
-* Закладки (начиная с версии 6.6)
-* Поддержка Firebase Analystic, Crashlystic, Perfomance (начиная с версии 6.0)
-* Нет рекламы
-* Поддержка экранов планшетных ПК
-* Малый вес (~3МБ)
-* Открытый исходный код
-* Много чего ещё
+### Features
+* This is a fully advanced WebView
+* Standard features (uploading, downloading files, viewing videos in full-screen mode, Long Press, etc.)
+* Minimalistic design
+* Night mode (I don't think this is a feature, but for someone it is very important)
+* Night web page mode (starting from version 6.2)
+* Text wrap at zoom (starting from version 7.0)
+* OTA updates (starting from version 7.0)
+* All services from Google (news, maps, translator)
+* Bookmarks (starting from version 6.6)
+* Support for Firebase Analystic, Crashlystic, Perfomance (starting from version 6.0)
+* No ads
+* Support for tablet PC screens
+* Light weight (~3 MB)
+* Open source
+* Many other things
 
-### Использованные ресурсы и репозитории
-* [Cripty](https://github.com/F0x1d/Cripty) - позаимствован ToolBar
-* [Picasso](https://github.com/square/picasso) - использование данной библиотеки в версии 5.0 и выше
-* [BottomSheet](https://github.com/soarcn/BottomSheet) - использование данной библиотеки в версии 6.0 и выше
+### Used resources and repositories
+* [Cripty](https://github.com/F0x1d/Cripty) - borrowed ToolBar
+* [Picasso](https://github.com/square/picasso) - using this library in version 5.0 and higher
+* [BottomSheet](https://github.com/soarcn/BottomSheet) - using this library in version 6.0 and higher
 
-### Лицензия
+### License
 ```
 MIT License
 
@@ -52,6 +52,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-### Скачать
-* [Релизы](https://github.com/dmitrylaas/Evolution-Browser/releases)
+### Download
+* [Releases](https://github.com/dmitrylaas/Evolution-Browser/releases)
 * [4PDA](https://4pda.ru/forum/index.php?showtopic=968330&st=0#entry89584153)
