@@ -1,8 +1,8 @@
 ![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/new.jpg)
 
-# Evolution Browser ([Telegram Chat](https://t.me/evolutionbr_chat))
+# Evolution Browser
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) ![RELEASE](https://img.shields.io/github/v/release/dmitrylaas/Evolution-Browser) ![DOWNLOADS](https://img.shields.io/github/downloads/dmitrylaas/Evolution-Browser/total)
-
+[Telegram Channel](https://t.me/evolution_browser)|[Telegram Chat](https://t.me/evolutionbr_chat)
 Evolution Browser - this is a rebirth of the previous Evo Browser project, but with the use of new, modern libraries, a new design, low weight and basic functionality. If any of the newcomers were looking for an advanced WebView, you can look at the source code and see how everything is implemented.
 >The source code was posted by the program developer's free will, so if you take something from my code, please leave a link to this repository. Thank you for understanding!
 
