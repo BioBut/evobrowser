@@ -1,4 +1,4 @@
-![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/new.jpg)
+![Banner](https://github.com/dmitrylaas/Evolution-Browser/blob/master/art/banner.png)
 
 # Evolution Browser
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) ![RELEASE](https://img.shields.io/github/v/release/dmitrylaas/Evolution-Browser) ![DOWNLOADS](https://img.shields.io/github/downloads/dmitrylaas/Evolution-Browser/total)
