@@ -34,7 +34,8 @@ Evolution Browser - this is a rebirth of the previous Evo Browser project, but w
 ```
 MIT License
 
-Copyright (c) 2020 Dmitry Laas
+Copyright (c) 2020 Dmitry Laas 
+Copyright (c) 2022 Biobut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
