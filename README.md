@@ -52,6 +52,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-### Download
-* [Releases](https://github.com/dmitrylaas/Evolution-Browser/releases)
-* [4PDA](https://4pda.ru/forum/index.php?showtopic=968330&st=0#entry89584153)
+
